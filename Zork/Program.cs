@@ -4,6 +4,8 @@ namespace Zork
 {
     class Program
     {
+        private static string[] Rooms;
+
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Zork!");
