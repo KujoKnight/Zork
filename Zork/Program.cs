@@ -5,28 +5,33 @@ namespace Zork
     class Program
     {
         private static string outputString;
-        private static string[] Rooms = new string[] {"in the Forest", "West of the House", "behind the House", "at the clearing", "at the canyon"};
-        private static int x;
+        private static readonly string[,] Rooms = {
+            {"at the Rocky Trail", "South of the House", "at the Canyon View"},
+            {"at the Forest","West of the House","behind the House"},
+            {"in the Dense Woods","North of the House","at the Clearing"}
+        };
+        private static (int x, int y) Location;
         private static bool canMove;
 
         static void Main(string[] args)
         {
+            Location.x = 1;
+            Location.y = 1;
             canMove = true;
-            x = 1;
             Console.Write("Welcome to Zork!");
 
             Commands command = Commands.UNKNOWN;
             while(command != Commands.QUIT)
             {
-                if(x >= 0 && x <= Rooms.Length && canMove == true)
+                if(Location.x >= 0 && Location.x <= Rooms.Length / 3 && Location.y >= 0 && Location.y <= Rooms.Length / 3 && canMove == true)
                 {
                     Console.CursorLeft = Console.BufferWidth - 32;
-                    Console.WriteLine("You are " + Rooms[x]);
+                    Console.WriteLine("You are " + Rooms[Location.x,Location.y]);
                 }
                 else if(canMove == false)
                 {
                     Console.CursorLeft = Console.BufferWidth - 32;
-                    Console.WriteLine("You are " + Rooms[x]);
+                    Console.WriteLine("You are " + Rooms[Location.x, Location.y]);
                     Console.CursorLeft = Console.BufferWidth - 32;
                     Console.WriteLine("The way is blocked");
                 }
@@ -56,16 +61,34 @@ namespace Zork
                         {
                             case Commands.NORTH:
                                 //Go North
+                                if (Location.x < Rooms.Length / 3 - 1)
+                                {
+                                    canMove = true;
+                                    Location.x += 1;
+                                }
+                                else
+                                {
+                                    canMove = false;
+                                }
                                 break;
                             case Commands.SOUTH:
                                 //Go South
+                                if (Location.x > 0)
+                                {
+                                    canMove = true;
+                                    Location.x -= 1;
+                                }
+                                else
+                                {
+                                    canMove = false;
+                                }
                                 break;
                             case Commands.EAST:
                                 //Go East
-                                if (x < Rooms.Length - 1)
+                                if (Location.y < Rooms.Length / 3 - 1)
                                 {
                                     canMove = true;
-                                    x += 1;
+                                    Location.y += 1;
                                 }
                                 else
                                 {
@@ -74,10 +97,10 @@ namespace Zork
                                 break;
                             case Commands.WEST:
                                 //Go West
-                                if (x > 0)
+                                if (Location.y > 0)
                                 {
                                     canMove = true;
-                                    x -= 1;
+                                    Location.y -= 1;
                                 }
                                 else
                                 {
