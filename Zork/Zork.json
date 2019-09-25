@@ -1,8 +1,9 @@
 ﻿{
+  "WelcomeMessage":  "Welcome to Zork!",
   "World": {
     "StartingLocation": "West of House",
     "Rooms": [
-     {
+      {
         "Name": "West of House",
         "Description": "This is an open field west of a white house, with a boarded front door.",
         "Neighbors": {
@@ -11,7 +12,7 @@
           "West": "Forest 1"
         }
       },
-     {
+      {
         "Name": "North of House",
         "Description": "You are facing the north side of a white house. There is no door here, and all the windows are barred.",
         "Neighbors": {
