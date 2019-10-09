@@ -4,6 +4,7 @@ using System.Text;
 using System.Linq;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace Zork
 {
@@ -12,7 +13,7 @@ namespace Zork
         public HashSet<Room> Rooms { get; set; }
 
         [JsonIgnore]
-        public IReadOnlyDictionary<string, Room> RoomsByName => mRoomsByName;
+        public ReadOnlyDictionary<string, Room> RoomsByName => new ReadOnlyDictionary<string, Room>(mRoomsByName);
 
         public Player SpawnPlayer() => new Player(this, StartingLocation);
 
